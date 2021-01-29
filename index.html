@@ -1,69 +1,191 @@
+
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head>
-	<meta charset="UTF-8">
-	<title>WP Port</title>
+<!-- Begin Jekyll SEO tag v2.7.1 -->
+<title>NBA WP Coding Challenge | private-nba-challenge</title>
+<meta name="generator" content="Jekyll v3.9.0" />
+<meta property="og:title" content="NBA WP Coding Challenge" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="https://pbrocks.github.io/private-nba-challenge/" />
+<meta property="og:url" content="https://pbrocks.github.io/private-nba-challenge/" />
+<meta property="og:site_name" content="private-nba-challenge" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="NBA WP Coding Challenge" />
+<script type="application/ld+json">
+{"@type":"WebSite","headline":"NBA WP Coding Challenge","url":"https://pbrocks.github.io/private-nba-challenge/","name":"private-nba-challenge","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
 
-	<style type="text/css">
-	html {
-		box-sizing: border-box;
-		background: aliceblue;
-	}
-	*, *:before, *:after {
-		box-sizing: inherit;
-	}
+    <link rel="stylesheet" href="/private-nba-challenge/assets/css/style.css?v=bb26a74c23c7a9ecda827c0b1023ca272a9cff09">
+  </head>
+  <body>
+    <div class="container-lg px-3 my-5 markdown-body">
+      
+      <h1><a href="https://pbrocks.github.io/private-nba-challenge/">private-nba-challenge</a></h1>
+      
 
-	h1, 
-	.centered {
-		text-align: center;
-	}
-	section {
-		margin: 10% auto;
-	}
+      <h1 id="nba-wp-coding-challenge">NBA WP Coding Challenge</h1>
+<details>
+<summary>Question 1 Answered</summary>
+<p>
+<p><a href="https://adampirani.github.io/wordpress-coding-challenge/questions/question1.html">Question 1</a></p>
+<p><strong>Given a file <code>wp-content/plugins/hello-world.php</code> with the following content:</strong></p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
 
-	.grid-wrapper {
-		position: relative;
-		top: 20%;
-		width: 60%;
-		left: 20%;
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		justify-content: center;
-		align-content: center;
-	}
+<span class="nf">add_filter</span><span class="p">(</span><span class="s1">'the_content'</span><span class="p">,</span> <span class="s1">'hello_world'</span><span class="p">);</span>
 
-	grid {
-		border: 1px solid #444;
-		color: #444;
-		border-radius: 5px;
-		padding: 20px;
-		font-size: 150%;
-	}
-	input {
-		background: white;
-	}
-	.item1 {
-		grid-column: 1 / -1;
-		background: white;
-	}
+<span class="k">function</span> <span class="n">hello_world</span> <span class="p">(</span> <span class="nv">$content</span> <span class="p">){</span>
+  <span class="k">return</span> <span class="s2">"&lt;h1&gt;Hello World&lt;/h1&gt;"</span> <span class="mf">.</span> <span class="nv">$content</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>Answer the following questions:</p>
+<ol>
+<li>Why can’t I see this plugin when viewing https://my-site.com/wp-admin/plugins.php?</li>
+<li>If enabled, what would this plugin do?</li>
+</ol>
+<h4 id="answer">Answer</h4>
+<p>The reason why this code doesn't show up in the plugins screen is because it's not yet a plugin. Minimally, a doc block needs to be added to this code with a heading <code>Plugin Name:</code> for WordPress to understand this bit of code as a plugin and therefore show in the plugins screen for activation. An example of a minimal doc block to register the plugin looks like:</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="cd">/**
+ * Plugin Name: An NBA Plugin
+ */</span>
+</code></pre></div></div>
+<p>The above doc block will place the plugin towards the top of the plugins list, because of the indefinite article in the plugin name, since plugins are sorted according to alphabetic order of plugin names.</p>
+<p>If this were configured to be a plugin, the contents of a post's <code>post_content</code> would be prefaced with an H1 heading consisting of the words, &quot;Hello World.&quot; That is, for each (custom) post type found in the <code>wp_posts</code> table that renders content on the frontend, it will also show the H1 before the rendered content.</p>
+</p>
+</details>
+<details>
+<summary>Question 2 Answered</summary>
+<p>
+<p><a href="https://adampirani.github.io/wordpress-coding-challenge/questions/question2.html">Question 2</a></p>
+<h3 id="consider-the-following-code-snippet">Consider the following code snippet</h3>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
 
-</style>
-</head>
-<body>
-	<section>
-		<h1>WP Port</h1>
-		<div class="grid-wrapper">
-			<grid class="item1 centered">Centered Grid</grid>
-			<grid class="item2">Grid 1/2</grid>
-			<grid class="item3">Grid 2/2</grid>
-			<grid class="item1">Not-centered Grid</grid>
-		</div>
-	</section>
- 
-<script type="text/javascript">
-	
-</script>
+<span class="nf">add_action</span><span class="p">(</span><span class="s1">'admin_menu'</span><span class="p">,</span> <span class="s1">'custom_menu'</span><span class="p">);</span>
 
-</body>
+<span class="nv">$custom_menu_string</span> <span class="o">=</span> <span class="nf">__</span><span class="p">(</span> <span class="s1">'Custom Menu'</span> <span class="p">,</span> <span class="s1">'nba'</span><span class="p">);</span>
+
+<span class="k">function</span> <span class="n">custom_menu</span><span class="p">(){</span>
+  <span class="nf">add_menu_page</span><span class="p">(</span><span class="nv">$custom_menu_string</span><span class="p">,</span> <span class="nv">$custom_menu_string</span><span class="p">,</span> <span class="s1">'manage_options'</span><span class="p">,</span> <span class="s1">'custom-menu'</span><span class="p">,</span> <span class="s1">'custom_menu_page_display'</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="n">custom_menu_page_display</span><span class="p">(){</span>
+  <span class="cp">?&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Hello World<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;p&gt;</span>This is a custom page<span class="nt">&lt;/p&gt;</span>
+  <span class="cp">&lt;?php</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>Answer the following questions:</p>
+<ol>
+<li>What does this code do?</li>
+<li>Who can/cannot view its effects?</li>
+<li>What URL exposes the new functionality?</li>
+</ol>
+<h3 id="answer-1">Answer</h3>
+<p>This code is attempting to build an admin menu, but it's pretty sloppy, so it won't render properly and it will throw some errors. The problem is that <code>$custom_menu_string</code> isn't defined within the scope of the function that creates the admin menu. Quickest solution would be to throw the variable definition into the function, but I might prefer to wrap it in its own function so it can be used independently from the menu definition. My preferred admin menu definition would look more like this:</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">add_action</span><span class="p">(</span> <span class="s1">'admin_menu'</span><span class="p">,</span> <span class="s1">'custom_menu'</span> <span class="p">);</span>
+<span class="k">function</span> <span class="n">custom_menu_name</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nv">$custom_menu_string</span> <span class="o">=</span> <span class="nf">__</span><span class="p">(</span> <span class="s1">'Custom Menu'</span><span class="p">,</span> <span class="s1">'nba'</span> <span class="p">);</span>
+	<span class="k">return</span> <span class="nv">$custom_menu_string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="n">custom_menu</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nv">$custom_menu_string</span> <span class="o">=</span> <span class="nf">custom_menu_name</span><span class="p">();</span>
+	<span class="nf">add_menu_page</span><span class="p">(</span> <span class="nv">$custom_menu_string</span><span class="p">,</span> <span class="nv">$custom_menu_string</span><span class="p">,</span> <span class="s1">'manage_options'</span><span class="p">,</span> <span class="s1">'custom-menu'</span><span class="p">,</span> <span class="s1">'custom_menu_page_display'</span> <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="k">function</span> <span class="n">custom_menu_page_display</span><span class="p">()</span> <span class="p">{</span> <span class="cp">?&gt;</span>
+	<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"wrap"</span><span class="nt">&gt;</span>
+		<span class="nt">&lt;h1&gt;</span>Hello World<span class="nt">&lt;/h1&gt;</span>
+		<span class="nt">&lt;p&gt;</span>This is a custom page<span class="nt">&lt;/p&gt;</span>
+	<span class="nt">&lt;/div&gt;</span>
+	<span class="cp">&lt;?php</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>Only admins can see this page because the code has a permission check that is defined to run only for users who can <code>manage_options</code>. By admins, I mean those user with the WP user role of <code>administrator</code>, ie not a <code>subscriber</code>, <code>contributor</code>, <code>author</code>, <code>editor</code>, or any other custom role that is not able to manage the options in the dashboard.</p>
+<p>Relative URL to the admin screen <code>/wp-admin/admin.php?page=custom-menu</code></p>
+</p>
+</details>
+<details>
+<summary>Question 3 Answered</summary>
+<p>
+<p><a href="https://adampirani.github.io/wordpress-coding-challenge/questions/question3.html">Question 3</a></p>
+<h3 id="consider-the-following-scenario">Consider the following scenario:</h3>
+<h4 id="for-all-players-in-the-nba-so-far">For all players in the NBA so far:</h4>
+<ul>
+<li>A <code>player</code> custom post type exists with a meta field called <code>player_external_id</code>
+<ul>
+<li>Assume all players have a unique value in this field (different than the WordPress post ID)</li>
+</ul>
+</li>
+</ul>
+<h4 id="for-the-upcoming-season-all-players-will-have-a-page-on-a-3rd-party-site-with-the-following-url-structure">For the upcoming season, all players will have a page on a 3rd party site with the following URL structure:</h4>
+<p><code>http://www.nba-player-tv.com/channel/{player_external_id}</code></p>
+<ul>
+<li>A new meta field <code>player_tv_url</code> was added to the <code>player</code> custom post</li>
+<li>All new players drafted for the upcoming season have the proper value set</li>
+</ul>
+<h4 id="summary">Summary</h4>
+<p>| Type | Name |
+| ---- | ---- |
+| Custom Post Type | player |
+| Custom Fields | player_external_id, player_tv_url |</p>
+<h3 id="we-need-to-update-any-missing-codeplayertvurlcode-post-metadata">We need to update any missing <code>player_tv_url</code> post metadata</h3>
+<ol>
+<li>Write the code that would accomplish this.</li>
+<li>How would you trigger the execution of this code?</li>
+</ol>
+<h3 id="answer-2">Answer</h3>
+<p>As I understand this scenario, we have a post type called <code>player</code> for each player. In order to get all of the players information, we can start with a function to get all of the posts of this post type, like:</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">function</span> <span class="n">get_all_players</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nv">$args</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+		<span class="s1">'numberposts'</span> <span class="o">=&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+		<span class="s1">'post_type'</span>   <span class="o">=&gt;</span> <span class="s1">'player'</span><span class="p">,</span>
+	<span class="p">);</span>
+
+	<span class="nv">$all_players</span> <span class="o">=</span> <span class="nf">get_posts</span><span class="p">(</span> <span class="nv">$args</span> <span class="p">);</span>
+	<span class="k">return</span> <span class="nv">$all_players</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>And assuming that the external ID is set for each player, a function to update the URL could be:</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">function</span> <span class="n">loop_thru_all_players</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nv">$all_players</span> <span class="o">=</span> <span class="nf">get_all_players</span><span class="p">();</span>
+
+	<span class="k">foreach</span> <span class="p">(</span> <span class="nv">$all_players</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$value</span> <span class="p">)</span> <span class="p">{</span>
+		<span class="nv">$player_external_id</span> <span class="o">=</span> <span class="nf">get_post_meta</span><span class="p">(</span> <span class="nv">$value</span><span class="o">-&gt;</span><span class="no">ID</span><span class="p">,</span> <span class="s1">'player_external_id'</span><span class="p">,</span> <span class="kc">true</span> <span class="p">);</span>
+		<span class="nv">$player_tv_url</span> <span class="o">=</span> <span class="s1">'http://www.nba-player-tv.com/channel/'</span> <span class="mf">.</span> <span class="nv">$player_external_id</span><span class="p">;</span>
+		<span class="nf">update_post_meta</span><span class="p">(</span> <span class="nv">$value</span><span class="o">-&gt;</span><span class="no">ID</span><span class="p">,</span> <span class="s1">'player_tv_url'</span><span class="p">,</span> <span class="nv">$player_tv_url</span> <span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<p>To run the code, you might hook into <code>init</code>.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">add_action</span><span class="p">(</span> <span class="s1">'init'</span><span class="p">,</span> <span class="s1">'loop_thru_all_players'</span> <span class="p">);</span>
+</code></pre></div></div>
+<p>However, this will run on each page load, which seems like overkill since this data likely won't change that often.</p>
+<p>What we can do is have the code run once a day, like a cron even, using <code>wp_schedule_event</code>. So rather than running the above on <code>init</code>, we will run the below:</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">add_action</span><span class="p">(</span> <span class="s1">'init'</span><span class="p">,</span> <span class="s1">'schedule_player_cron_update'</span> <span class="p">);</span>
+<span class="k">function</span> <span class="n">schedule_player_cron_update</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nf">add_action</span><span class="p">(</span> <span class="s1">'run-player-cron-update'</span><span class="p">,</span> <span class="s1">'loop_thru_all_players'</span> <span class="p">);</span>
+
+	<span class="k">if</span> <span class="p">(</span> <span class="o">!</span> <span class="nf">wp_next_scheduled</span><span class="p">(</span> <span class="s1">'run-player-cron-update'</span> <span class="p">)</span> <span class="p">)</span> <span class="p">{</span>
+		<span class="nf">wp_schedule_event</span><span class="p">(</span> <span class="nb">time</span><span class="p">(),</span> <span class="s1">'daily'</span><span class="p">,</span> <span class="s1">'run-player-cron-update'</span> <span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+</p>
+</details>
+
+
+      
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.1.0/anchor.min.js" integrity="sha256-lZaRhKri35AyJSypXXs4o6OPFTbTmUoltBbDCbdzegg=" crossorigin="anonymous"></script>
+    <script>anchors.add();</script>
+    
+  </body>
 </html>
